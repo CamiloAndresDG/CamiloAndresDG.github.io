@@ -27,7 +27,7 @@ Welcome to the repository for my personal website! This is a showcase of my proj
     <!-- - `...`: Additional assets -->
   - `styles.css`: Main stylesheet
   - `main.js`: Main script
-  - `LICENSE`: License file
+  - `License`: License file
   - `README.md`: Project documentation
 
 ## 🌐 Live Demo
