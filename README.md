@@ -16,20 +16,19 @@ Welcome to the repository for my personal website! This is a showcase of my proj
 
 ## 📂 Project Structure
 
-personal-website/
-├── index.html          # Home page
-├── blog/               # Blog posts and articles
-│   ├── post1.html      # Blog post 1
-│   ├── post2.html      # Blog post 2
-│   └── ...             # Additional blog posts
-├── assets/             # Images, icons, and other media
-│   ├── images/         # Image files
-│   ├── icons/          # Icon files
-│   └── ...             # Additional assets
-├── styles.css      # Main stylesheet
-├── main.js      # Main script
-├── LICENSE             # License file
-└── README.md           # Project documentation
+- **personal-website/**
+  - `index.html`: Home page
+  - **blog/**: Blog posts and articles
+    - `post1.html`: Blog post 1 ([I National and International Meeting and III Inter-Institutional Meeting of Research Seedbeds](https://sitio.usanjose.edu.co/wp-content/uploads/2020/12/Memorias-Encuentro.pdf))
+    - `...`: Additional blog posts
+  - **resource/**: Images, icons, and other media
+    <!-- - **images/**: Image files
+    - **icons/**: Icon files -->
+    <!-- - `...`: Additional assets -->
+  - `styles.css`: Main stylesheet
+  - `main.js`: Main script
+  - `LICENSE`: License file
+  - `README.md`: Project documentation
 
 ## 🌐 Live Demo
 
