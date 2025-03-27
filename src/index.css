@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light dark;
+}
+
+html.dark {
+  color-scheme: dark;
+}
+
+.social-icon {
+  @apply w-12 h-12 flex items-center justify-center rounded-full transition-colors;
+}
+
+.social-icon.github {
+  @apply bg-gray-900 text-white hover:bg-gray-700 dark:bg-gray-700 dark:hover:bg-gray-600;
+}
+
+.social-icon.linkedin {
+  @apply bg-blue-600 text-white hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-600;
+}
+
+.social-icon.email {
+  @apply bg-red-600 text-white hover:bg-red-700 dark:bg-red-700 dark:hover:bg-red-600;
+}
+
+/* Add styles for sticky positioning */
+@media (min-width: 768px) {
+  .md\:sticky {
+    position: sticky;
+    align-self: flex-start;
+  }
+}
+
+/* Ensure proper text contrast in dark mode */
+.dark .prose {
+  color: #D1D5DB;
+}
