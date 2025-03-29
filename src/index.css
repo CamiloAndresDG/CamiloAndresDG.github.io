@@ -15,7 +15,7 @@ html.dark {
 }
 
 .social-icon.github {
-  @apply bg-gray-900 text-white hover:bg-gray-700 dark:bg-gray-700 dark:hover:bg-gray-600;
+  @apply bg-black text-white hover:bg-gray-800;
 }
 
 .social-icon.linkedin {

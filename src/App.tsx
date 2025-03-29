@@ -9,6 +9,7 @@ function BackgroundAnimation() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const mouseRef = useRef({ x: 0, y: 0 });
   const timeRef = useRef(0);
+  const { theme } = useTheme();
   const particlesRef = useRef<Array<{
     x: number;
     y: number;
@@ -57,6 +58,12 @@ function BackgroundAnimation() {
     };
 
     const connect = () => {
+      const particleColor = theme === 'dark' ? 'rgba(75, 85, 99, 0.8)' : 'rgba(180, 180, 180, 0.8)';
+      const lineColor = (distance: number) => 
+        theme === 'dark' 
+          ? `rgba(75, 85, 99, ${1 - distance / 120})`
+          : `rgba(180, 180, 180, ${1 - distance / 120})`;
+
       for (let i = 0; i < particlesRef.current.length; i++) {
         for (let j = i; j < particlesRef.current.length; j++) {
           const dx = particlesRef.current[i].x - particlesRef.current[j].x;
@@ -65,7 +72,7 @@ function BackgroundAnimation() {
 
           if (distance < 120) {
             ctx.beginPath();
-            ctx.strokeStyle = `rgba(180, 180, 180, ${1 - distance / 120})`;
+            ctx.strokeStyle = lineColor(distance);
             ctx.lineWidth = 1;
             ctx.moveTo(particlesRef.current[i].x, particlesRef.current[i].y);
             ctx.lineTo(particlesRef.current[j].x, particlesRef.current[j].y);
@@ -106,7 +113,7 @@ function BackgroundAnimation() {
         }
 
         ctx.beginPath();
-        ctx.fillStyle = 'rgba(180, 180, 180, 0.8)';
+        ctx.fillStyle = theme === 'dark' ? 'rgba(75, 85, 99, 0.8)' : 'rgba(180, 180, 180, 0.8)';
         ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
         ctx.fill();
       });
@@ -131,13 +138,12 @@ function BackgroundAnimation() {
       window.removeEventListener('resize', handleResize);
       canvas.removeEventListener('mousemove', handleMouseMove);
     };
-  }, []);
+  }, [theme]);
 
   return (
     <canvas
       ref={canvasRef}
-      className="absolute inset-0 w-full h-full dark:bg-gray-900"
-      style={{ background: 'white' }}
+      className={`absolute inset-0 w-full h-full ${theme === 'dark' ? 'bg-gray-900' : 'bg-white'}`}
     />
   );
 }
@@ -284,12 +290,14 @@ function App() {
         <div className="max-w-4xl mx-auto px-4">
           <div className="bg-white dark:bg-gray-700 shadow-lg rounded-lg p-8">
             <div className="flex flex-col md:flex-row items-start gap-8">
-              <div className="md:sticky md:top-8 flex-shrink-0">
-                <img
-                  src="https://avatars.githubusercontent.com/u/60698278?v=4"
-                  alt="Camilo Diaz"
-                  className="w-48 h-48 object-cover rounded-lg shadow-md"
-                />
+              <div className="md:sticky md:top-24 flex-shrink-0 self-start">
+                <div className="relative">
+                  <img
+                    src="https://avatars.githubusercontent.com/u/60698278?v=4"
+                    alt="Camilo Diaz"
+                    className="w-48 h-48 object-cover rounded-lg shadow-md"
+                  />
+                </div>
               </div>
               <div className="flex-grow">
                 <div className="prose prose-lg dark:prose-invert">
@@ -300,15 +308,7 @@ function App() {
                     {t('about.description1')}
                   </p>
                   <p className="text-gray-700 dark:text-gray-300">
-                    {t('about.description2')}{' '}
-                    <a 
-                      href="https://www.ucm.es/" 
-                      className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 underline"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Complutense University of Madrid
-                    </a>
+                    {t('about.description2')}
                   </p>
                 </div>
               </div>
