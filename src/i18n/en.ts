@@ -4,17 +4,18 @@ export default {
     about: 'About',
     experience: 'Experience',
     projects: 'Projects',
+    interests: 'Interests',
     contact: 'Contact'
   },
   intro: {
-    title: '👋 Hi! I\'m a bilingual data engineer specializing in ETL, machine learning, and cloud solutions. I’ve worked across multiple industries, building scalable data-driven solutions. Always learning, always innovating 💡',
+    title: '👋 Hi! I\'m a bilingual data engineer specializing in ETL, machine learning, and cloud solutions. I\'ve worked across multiple industries, building scalable data-driven solutions. Always learning, always innovating 💡',
     description: 'Currently working on interactive data stories and machine learning projects.'
   },
   about: {
     title: 'About Me',
     greeting: 'Hi, I\'m Camilo Diaz.',
     description1: 'I help companies and researchers analyze, transform, and visualize their data. My expertise lies in data engineering, ETL processes, and machine learning, ensuring that insights are not only accurate but also effectively communicated. If you need guidance on building scalable data pipelines or creating compelling visualizations, I\'m here to help.',
-    description2: 'With over three years of experience in data science and engineering, I have worked in consulting roles for industries like finance, healthcare, and telecommunications. I\'m currently pursuing a master\'s degree in Data Science, Big Data, and AI at the Complutense University of Madrid while working as a consultant, continuously expanding my expertise in advanced analytics and data-driven solutions.'
+    description2: 'With over three years of experience in data science and engineering, I have worked in consulting roles for industries like finance, healthcare, and telecommunications. I\'m currently pursuing a master\'s degree in Data Science, Big Data, and AI at the <a href="https://www.ucm.es" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300">Complutense University of Madrid</a> while working as a consultant, continuously expanding my expertise in advanced analytics and data-driven solutions.'
   },
   experience: {
     title: 'Work Experience',
@@ -43,13 +44,35 @@ export default {
     viewProject: 'View Project',
     viewOnGithub: 'View on GitHub'
   },
+  interests: {
+    title: 'Interests & Passions',
+    comingSoon: 'Coming Soon',
+    sections: {
+      interests: {
+        title: 'Interests',
+        description: 'Exploring new technologies and their impact on society'
+      },
+      likes: {
+        title: 'Likes & Tastes',
+        description: 'A collection of things that inspire and motivate me'
+      },
+      passions: {
+        title: 'Passions',
+        description: 'What drives me forward and keeps me motivated'
+      },
+      hobbies: {
+        title: 'Hobbies',
+        description: 'Activities that help me maintain work-life balance'
+      }
+    }
+  },
   contact: {
     title: 'Get in Touch',
     description: 'Feel free to contact me for any question. If you want to follow my work, reach me on GitHub. Otherwise, send me an email at',
     location: 'Madrid, Spain'
   },
   footer: {
-    copyright: 'Copyright © Camilo Díaz 2025',
+    copyright: 'Copyright © Camilo Diaz 2025',
     privacy: 'Privacy Policy',
     terms: 'Terms of Use',
     credits: 'Inspired by',

@@ -17,9 +17,9 @@ export default function Map() {
   return (
     <MapContainer 
       center={SPAIN_POSITION} 
-      zoom={6} 
+      zoom={5} 
       scrollWheelZoom={false}
-      style={{ height: '300px', width: '100%', borderRadius: '0.5rem' }}
+      style={{ height: '400px', width: '100%', borderRadius: '0.5rem' }}
     >
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

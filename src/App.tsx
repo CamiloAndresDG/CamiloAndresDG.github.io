@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Github, Linkedin, Mail, ChevronDown, ExternalLink, Code2, Languages, MapPin, Sun, Moon } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from './hooks/useTheme';
+import { useLanguage } from './hooks/useLanguage';
 import Map from './components/Map';
 import Footer from './components/Footer';
 
@@ -9,6 +10,7 @@ function BackgroundAnimation() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const mouseRef = useRef({ x: 0, y: 0 });
   const timeRef = useRef(0);
+  const { theme } = useTheme();
   const particlesRef = useRef<Array<{
     x: number;
     y: number;
@@ -57,6 +59,9 @@ function BackgroundAnimation() {
     };
 
     const connect = () => {
+      const particleColor = 'rgba(75, 85, 99, 0.8)';
+      const lineColor = (distance: number) => `rgba(75, 85, 99, ${1 - distance / 120})`;
+
       for (let i = 0; i < particlesRef.current.length; i++) {
         for (let j = i; j < particlesRef.current.length; j++) {
           const dx = particlesRef.current[i].x - particlesRef.current[j].x;
@@ -65,7 +70,7 @@ function BackgroundAnimation() {
 
           if (distance < 120) {
             ctx.beginPath();
-            ctx.strokeStyle = `rgba(180, 180, 180, ${1 - distance / 120})`;
+            ctx.strokeStyle = lineColor(distance);
             ctx.lineWidth = 1;
             ctx.moveTo(particlesRef.current[i].x, particlesRef.current[i].y);
             ctx.lineTo(particlesRef.current[j].x, particlesRef.current[j].y);
@@ -106,7 +111,7 @@ function BackgroundAnimation() {
         }
 
         ctx.beginPath();
-        ctx.fillStyle = 'rgba(180, 180, 180, 0.8)';
+        ctx.fillStyle = 'rgba(75, 85, 99, 0.8)';
         ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
         ctx.fill();
       });
@@ -136,15 +141,14 @@ function BackgroundAnimation() {
   return (
     <canvas
       ref={canvasRef}
-      className="absolute inset-0 w-full h-full dark:bg-gray-900"
-      style={{ background: 'white' }}
+      className="absolute inset-0 w-full h-full bg-gray-900"
     />
   );
 }
 
 function Header() {
-  const { t, i18n } = useTranslation();
-  const [currentLanguage, setCurrentLanguage] = useState(i18n.language);
+  const { t } = useTranslation();
+  const { currentLanguage, toggleLanguage } = useLanguage();
   const { theme, toggleTheme } = useTheme();
   const [activeSection, setActiveSection] = useState('home');
 
@@ -167,12 +171,6 @@ function Header() {
     return () => observer.disconnect();
   }, []);
 
-  const toggleLanguage = () => {
-    const newLang = currentLanguage === 'en' ? 'es' : 'en';
-    i18n.changeLanguage(newLang);
-    setCurrentLanguage(newLang);
-  };
-
   const getNavLinkClass = (section: string) => {
     return `transition-all duration-200 ${
       activeSection === section
@@ -180,6 +178,14 @@ function Header() {
         : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white'
     }`;
   };
+
+  const getNextLanguageInfo = () => {
+    return currentLanguage === 'en' 
+      ? { flag: 'https://flagcdn.com/w40/es.png', text: 'ES' }
+      : { flag: 'https://flagcdn.com/w40/gb.png', text: 'EN' };
+  };
+
+  const nextLang = getNextLanguageInfo();
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm">
@@ -197,11 +203,11 @@ function Header() {
             className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"
           >
             <img 
-              src={currentLanguage === 'en' ? 'https://flagcdn.com/w40/gb.png' : 'https://flagcdn.com/w40/es.png'} 
-              alt={currentLanguage === 'en' ? 'English' : 'Español'}
+              src={nextLang.flag}
+              alt={currentLanguage === 'en' ? 'Español' : 'English'}
               className="w-6 h-4"
             />
-            <span>{currentLanguage.toUpperCase()}</span>
+            <span>{nextLang.text}</span>
           </button>
           <button
             onClick={toggleTheme}
@@ -241,7 +247,7 @@ function App() {
       <section id="home" className="relative min-h-screen flex items-center justify-center pt-16">
         <BackgroundAnimation />
         <div className="relative max-w-3xl mx-auto px-4 text-center">
-          <h1 className="text-6xl font-light text-gray-900 dark:text-white mb-8">
+          <h1 className="text-6xl font-light dark:text-white mb-8">
             Camilo
             <div className="inline-block mx-4">
               <img
@@ -253,11 +259,11 @@ function App() {
             Diaz
           </h1>
           
-          <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">
+          <p className="text-xl dark:text-white dark:text-white mb-8 leading-relaxed">
             {t('intro.title')}
           </p>
           
-          <hr className="w-32 mx-auto border-gray-300 dark:border-gray-700 mb-8" />
+          <hr className="w-32 mx-auto border-gray-300 dark:border-gray-600 mb-8" />
           
           <div className="flex justify-center gap-8 mb-12">
             <a href="https://github.com/CamiloAndresDG" className="social-icon github">
@@ -280,16 +286,18 @@ function App() {
         </div>
       </section>
 
-      <section id="about" className="py-20 bg-gray-900 dark:bg-gray-800">
+      <section id="about" className="py-20 bg-gray-50 dark:bg-gray-800">
         <div className="max-w-4xl mx-auto px-4">
           <div className="bg-white dark:bg-gray-700 shadow-lg rounded-lg p-8">
             <div className="flex flex-col md:flex-row items-start gap-8">
-              <div className="md:sticky md:top-8 flex-shrink-0">
-                <img
-                  src="https://avatars.githubusercontent.com/u/60698278?v=4"
-                  alt="Camilo Diaz"
-                  className="w-48 h-48 object-cover rounded-lg shadow-md"
-                />
+              <div className="md:w-48 flex-shrink-0">
+                <div className="sticky top-24">
+                  <img
+                    src="https://avatars.githubusercontent.com/u/60698278?v=4"
+                    alt="Camilo Diaz"
+                    className="w-48 h-48 object-cover rounded-lg shadow-md"
+                  />
+                </div>
               </div>
               <div className="flex-grow">
                 <div className="prose prose-lg dark:prose-invert">
@@ -300,15 +308,7 @@ function App() {
                     {t('about.description1')}
                   </p>
                   <p className="text-gray-700 dark:text-gray-300">
-                    {t('about.description2')}{' '}
-                    <a 
-                      href="https://www.ucm.es/" 
-                      className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 underline"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Complutense University of Madrid
-                    </a>
+                    {t('about.description2')}
                   </p>
                 </div>
               </div>
@@ -317,7 +317,7 @@ function App() {
         </div>
       </section>
 
-      <section id="experience" className="py-20 bg-gray-50 dark:bg-gray-900">
+      <section id="experience" className="py-20 bg-white dark:bg-gray-900">
         <div className="max-w-4xl mx-auto px-4">
           <h2 className="text-3xl font-light text-center mb-16 text-gray-900 dark:text-white">{t('experience.title')}</h2>
           <div className="space-y-12">
@@ -335,10 +335,11 @@ function App() {
                 <p className="text-gray-600 dark:text-gray-400 mb-2">{t('experience.qaracter.period')}</p>
                 <p className="text-gray-600 dark:text-gray-400 mb-3">{t('experience.qaracter.description')}</p>
                 <div className="flex flex-wrap gap-2">
-                  <span className="px-2 py-1 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 text-xs rounded">Alteryx</span>
-                  <span className="px-2 py-1 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 text-xs rounded">Tableau</span>
-                  <span className="px-2 py-1 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 text-xs rounded">SQL</span>
-                  <span className="px-2 py-1 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 text-xs rounded">Python</span>
+                  <span className="px-2 py-1 bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-400 text-xs rounded">Alteryx</span>
+                  <span className="px-2 py-1 bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-400 text-xs rounded">Tableau</span>
+                  <span className="px-2 py-1 bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-400 text-xs rounded">SQL</span>
+                  <span className="px-2 py-1 bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-400 text-xs rounded">Microsoft SQL Server</span>
+                  <span className="px-2 py-1 bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-400 text-xs rounded">Python</span>
                 </div>
               </div>
             </div>
@@ -357,12 +358,14 @@ function App() {
                 <p className="text-gray-600 dark:text-gray-400 mb-2">{t('experience.publicis.period')}</p>
                 <p className="text-gray-600 dark:text-gray-400 mb-3">{t('experience.publicis.description')}</p>
                 <div className="flex flex-wrap gap-2">
-                  <span className="px-2 py-1 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 text-xs rounded">Python</span>
-                  <span className="px-2 py-1 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 text-xs rounded">PySpark</span>
-                  <span className="px-2 py-1 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 text-xs rounded">Spark</span>
-                  <span className="px-2 py-1 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 text-xs rounded">Databricks</span>
-                  <span className="px-2 py-1 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 text-xs rounded">Azure</span>
-                  <span className="px-2 py-1 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 text-xs rounded">SQL</span>
+                  <span className="px-2 py-1 bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-400 text-xs rounded">Python</span>
+                  <span className="px-2 py-1 bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-400 text-xs rounded">PySpark</span>
+                  <span className="px-2 py-1 bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-400 text-xs rounded">Spark</span>
+                  <span className="px-2 py-1 bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-400 text-xs rounded">Databricks</span>
+                  <span className="px-2 py-1 bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-400 text-xs rounded">Azure</span>
+                  <span className="px-2 py-1 bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-400 text-xs rounded">SQL</span>
+                  <span className="px-2 py-1 bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-400 text-xs rounded">Microsoft SQL Server</span>
+                  <span className="px-2 py-1 bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-400 text-xs rounded">NoSQL</span>
                 </div>
               </div>
             </div>
@@ -381,10 +384,18 @@ function App() {
                 <p className="text-gray-600 dark:text-gray-400 mb-2">{t('experience.ey.period')}</p>
                 <p className="text-gray-600 dark:text-gray-400 mb-3">{t('experience.ey.description')}</p>
                 <div className="flex flex-wrap gap-2">
-                  <span className="px-2 py-1 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 text-xs rounded">Python</span>
-                  <span className="px-2 py-1 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 text-xs rounded">R</span>
-                  <span className="px-2 py-1 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 text-xs rounded">SQL</span>
-                  <span className="px-2 py-1 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 text-xs rounded">Tableau</span>
+                  <span className="px-2 py-1 bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-400 text-xs rounded">Python</span>
+                  <span className="px-2 py-1 bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-400 text-xs rounded">R</span>
+                  <span className="px-2 py-1 bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-400 text-xs rounded">PySpark</span>
+                  <span className="px-2 py-1 bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-400 text-xs rounded">SQL</span>
+                  <span className="px-2 py-1 bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-400 text-xs rounded">PostgreSQL</span>
+                  <span className="px-2 py-1 bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-400 text-xs rounded">NoSQL</span>
+                  <span className="px-2 py-1 bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-400 text-xs rounded">GIS</span>
+                  <span className="px-2 py-1 bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-400 text-xs rounded">Machine Learning</span>
+                  <span className="px-2 py-1 bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-400 text-xs rounded">Deep Learning</span>
+                  <span className="px-2 py-1 bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-400 text-xs rounded">Databricks</span>
+                  <span className="px-2 py-1 bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-400 text-xs rounded">Azure</span>
+                  <span className="px-2 py-1 bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-400 text-xs rounded">Power BI</span>
                 </div>
               </div>
             </div>
@@ -392,9 +403,9 @@ function App() {
         </div>
       </section>
 
-      <section className="py-20 bg-gray-900 dark:bg-gray-800 text-white">
+      <section className="py-20 bg-gray-50 dark:bg-gray-800">
         <div className="max-w-6xl mx-auto px-4">
-          <h2 className="text-3xl font-light text-center mb-16">{t('projects.featured.title')}</h2>
+          <h2 className="text-3xl font-light text-center mb-16 text-gray-900 dark:text-white">{t('projects.featured.title')}</h2>
           <div className="flex flex-col md:flex-row gap-8 items-center">
             <div className="md:w-1/2">
               <img
@@ -404,13 +415,13 @@ function App() {
               />
             </div>
             <div className="md:w-1/2">
-              <h3 className="text-2xl font-medium mb-4">SeniorTrAIning</h3>
-              <p className="text-gray-300 mb-6">
+              <h3 className="text-2xl font-medium text-gray-900 dark:text-white mb-4">SeniorTrAIning</h3>
+              <p className="text-gray-700 dark:text-gray-300 mb-6">
                 {t('projects.featured.description')}
               </p>
               <a 
                 href="https://github.com/CamiloAndresDG/SeniorTrAIning"
-                className="inline-flex items-center text-blue-400 hover:text-blue-300"
+                className="inline-flex items-center text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -429,20 +440,20 @@ function App() {
               {
                 title: "VocalMind",
                 description: "A machine learning-based system that detects depression and anxiety through voice analysis, leveraging audio spectrograms and additional features to predict emotional states. Designed for early detection and mental health support.",
-                github: "https://github.com/CamiloAndresDG/Speech_Recognition",
-                tags: ["Machine Learning", "Audio Analysis", "Mental Health"]
+                github: "https://github.com/CamiloAndresDG/VocalMind",
+                tags: ["Python", "Machine Learning", "Audio Analysis", "Data Analysis", "Mental Health"]
               },
               {
                 title: "NeuralCrime",
                 description: "A data-driven crime analysis and prediction system for Los Angeles, leveraging publicly available crime records from 2020 to present. The project involves data extraction, processing, visualization, and predictive modeling to identify crime patterns and trends, aiding in informed decision-making and public safety initiatives.",
                 github: "https://github.com/CamiloAndresDG/Crime_Prediction_LA",
-                tags: ["Data Analysis", "Predictive Modeling", "Public Safety"]
+                tags: ["Python", "PySpark", "Apache Spark", "Pipeline", "ETL",  "Machine Learning", "Data Analysis", "Predictive Modeling", "Public Safety"]
               },
               {
                 title: "NioTe",
                 description: "NioTe is a climate data simulation model designed to support IoT project development. By leveraging open-source climate data from reliable sources like Datos Abiertos Colombia and applying quality controls, it enables realistic data generation for specific regions in Colombia. Using Machine Learning techniques, NioTe captures patterns from historical climate data to create synthetic datasets that mimic real-world weather behavior.",
                 github: "https://github.com/CamiloAndresDG/NIOTE",
-                tags: ["IoT", "Climate Data", "Simulation"]
+                tags: ["Python", "SQL", "Machine Learning", "IoT", "Climate Data", "Simulation"]
               },
               {
                 title: "AereoUSB",
@@ -457,7 +468,7 @@ function App() {
                   <p className="text-gray-600 dark:text-gray-300 mb-4 text-sm">{project.description}</p>
                   <div className="flex flex-wrap gap-2 mb-4">
                     {project.tags.map((tag, tagIndex) => (
-                      <span key={tagIndex} className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 text-xs rounded">
+                      <span key={tagIndex} className="px-2 py-1 bg-gray-50 dark:bg-gray-700 text-gray-600 dark:text-gray-300 text-xs rounded">
                         {tag}
                       </span>
                     ))}
@@ -478,9 +489,9 @@ function App() {
         </div>
       </section>
 
-      <section id="contact" className="py-20 bg-gray-50 dark:bg-gray-800">
+      <section id="contact" className="py-20 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white">
         <div className="max-w-4xl mx-auto px-4 text-center">
-          <h2 className="text-3xl font-light mb-8 text-gray-900 dark:text-white">{t('contact.title')}</h2>
+          <h2 className="text-3xl font-light mb-8">{t('contact.title')}</h2>
           <p className="text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
             {t('contact.description')}{' '}
             <a 
@@ -493,7 +504,7 @@ function App() {
           <div className="flex justify-center gap-6 mb-12">
             <a 
               href="https://github.com/CamiloAndresDG"
-              className="inline-flex items-center px-6 py-3 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors"
+              className="inline-flex items-center px-6 py-3 bg-black text-white rounded-lg hover:bg-gray-800 transition-colors"
               target="_blank"
               rel="noopener noreferrer"
             >

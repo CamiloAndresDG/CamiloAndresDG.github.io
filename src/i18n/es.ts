@@ -4,6 +4,7 @@ export default {
     about: 'Sobre Mí',
     experience: 'Experiencia',
     projects: 'Proyectos',
+    interests: 'Intereses',
     contact: 'Contacto'
   },
   intro: {
@@ -14,7 +15,7 @@ export default {
     title: 'Sobre Mí',
     greeting: 'Hola, soy Camilo Diaz.',
     description1: 'Ayudo a empresas e investigadores a analizar, transformar y visualizar sus datos. Mi experiencia se centra en ingeniería de datos, procesos ETL y machine learning, asegurando que los insights no solo sean precisos sino también efectivamente comunicados. Si necesitas orientación para construir pipelines de datos escalables o crear visualizaciones convincentes, estoy aquí para ayudar.',
-    description2: 'Con más de tres años de experiencia en ciencia e ingeniería de datos, he trabajado como consultor para industrias como finanzas, salud y telecomunicaciones. Actualmente estoy cursando un máster en Ciencia de Datos, Big Data e IA en la Universidad Complutense de Madrid mientras trabajo como consultor, expandiendo continuamente mi experiencia en análisis avanzado y soluciones basadas en datos.'
+    description2: 'Con más de tres años de experiencia en ciencia e ingeniería de datos, he trabajado como consultor para industrias como finanzas, salud y telecomunicaciones. Actualmente estoy cursando un máster en Ciencia de Datos, Big Data e IA en la <a href="https://www.ucm.es" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300">Universidad Complutense de Madrid</a> mientras trabajo como consultor, expandiendo continuamente mi experiencia en análisis avanzado y soluciones basadas en datos.'
   },
   experience: {
     title: 'Experiencia Laboral',
@@ -41,33 +42,29 @@ export default {
     },
     title: 'Proyectos Personales',
     viewProject: 'Ver Proyecto',
-    viewOnGithub: 'Ver en GitHub',
-    projects: [
-      {
-        title: "VocalMind",
-        description: "Un sistema basado en machine learning que detecta depresión y ansiedad a través del análisis de voz, utilizando espectrogramas de audio y características adicionales para predecir estados emocionales. Diseñado para la detección temprana y el apoyo a la salud mental.",
-        github: "https://github.com/CamiloAndresDG/Speech_Recognition",
-        tags: ["Machine Learning", "Análisis de Audio", "Salud Mental"]
+    viewOnGithub: 'Ver en GitHub'
+  },
+  interests: {
+    title: 'Intereses y Pasiones',
+    comingSoon: 'Próximamente',
+    sections: {
+      interests: {
+        title: 'Intereses',
+        description: 'Explorando nuevas tecnologías y su impacto en la sociedad'
       },
-      {
-        title: "NeuralCrime",
-        description: "Un sistema de análisis y predicción de delitos para Los Ángeles, aprovechando registros de delitos disponibles públicamente desde 2020 hasta la actualidad. El proyecto involucra extracción de datos, procesamiento, visualización y modelado predictivo para identificar patrones y tendencias delictivas, ayudando en la toma de decisiones informada y las iniciativas de seguridad pública.",
-        github: "https://github.com/CamiloAndresDG/Crime_Prediction_LA",
-        tags: ["Análisis de Datos", "Modelado Predictivo", "Seguridad Pública"]
+      likes: {
+        title: 'Gustos',
+        description: 'Una colección de cosas que me inspiran y motivan'
       },
-      {
-        title: "NioTe",
-        description: "NioTe es un modelo de simulación de datos climáticos diseñado para apoyar el desarrollo de proyectos IoT. Aprovechando datos climáticos de código abierto de fuentes confiables como Datos Abiertos Colombia y aplicando controles de calidad, permite la generación de datos realistas para regiones específicas en Colombia. Utilizando técnicas de Machine Learning, NioTe captura patrones de datos climáticos históricos para crear conjuntos de datos sintéticos que imitan el comportamiento climático del mundo real.",
-        github: "https://github.com/CamiloAndresDG/NIOTE",
-        tags: ["IoT", "Datos Climáticos", "Simulación"]
+      passions: {
+        title: 'Pasiones',
+        description: 'Lo que me impulsa hacia adelante y me mantiene motivado'
       },
-      {
-        title: "AereoUSB",
-        description: "AereoUSB es un sistema de gestión de aerolíneas desarrollado en Java como parte de un curso de Estructuras de Datos. El proyecto aprovecha varias estructuras de datos para manejar eficientemente los recursos clave de la aerolínea, incluyendo flota, tripulación, pilotos y vuelos. Al garantizar una comunicación clara y estructurada entre agentes y clientes, AereoUSB mejora la compra de boletos, optimiza las operaciones y proporciona un marco confiable de gestión de datos para servicios aéreos.",
-        github: "https://github.com/CamiloAndresDG/AereoUSB",
-        tags: ["Java", "Estructuras de Datos", "Sistema de Gestión"]
+      hobbies: {
+        title: 'Pasatiempos',
+        description: 'Actividades que me ayudan a mantener el equilibrio entre trabajo y vida'
       }
-    ]
+    }
   },
   contact: {
     title: 'Contacto',
