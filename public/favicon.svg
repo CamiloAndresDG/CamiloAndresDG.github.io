@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="256" cy="256" r="256" fill="#F8F9FA"/>
+  <path d="M128 160H384V352H128V160ZM352 192H160V320H352V192ZM192 224H320V288H192V224Z" fill="#212529"/>
+  <text x="160" y="272" font-family="Arial Black" font-size="48" fill="#212529">CDG</text>
+</svg>
