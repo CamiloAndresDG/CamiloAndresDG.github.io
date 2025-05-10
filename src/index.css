@@ -38,3 +38,62 @@ html.dark {
 .dark .prose {
   color: #D1D5DB;
 }
+
+/* Interest section styles */
+.interest-card {
+  @apply transform transition-all duration-300 hover:scale-105 hover:shadow-xl;
+}
+
+.interest-icon {
+  @apply transform transition-all duration-300 hover:scale-110;
+}
+
+.interest-item {
+  @apply flex items-center gap-2 p-2 rounded-lg transition-all duration-300 hover:bg-gray-50 dark:hover:bg-gray-600;
+}
+
+.interest-section {
+  @apply bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900;
+}
+
+/* Animation for interest items */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.interest-item {
+  animation: fadeInUp 0.5s ease-out forwards;
+}
+
+.interest-item:nth-child(1) { animation-delay: 0.1s; }
+.interest-item:nth-child(2) { animation-delay: 0.2s; }
+.interest-item:nth-child(3) { animation-delay: 0.3s; }
+
+/* Hover effects for interest cards */
+.interest-card:hover .interest-icon {
+  @apply rotate-12;
+}
+
+/* Custom scrollbar for interest section */
+.interest-section::-webkit-scrollbar {
+  width: 8px;
+}
+
+.interest-section::-webkit-scrollbar-track {
+  @apply bg-gray-100 dark:bg-gray-800;
+}
+
+.interest-section::-webkit-scrollbar-thumb {
+  @apply bg-gray-300 dark:bg-gray-600 rounded-full;
+}
+
+.interest-section::-webkit-scrollbar-thumb:hover {
+  @apply bg-gray-400 dark:bg-gray-500;
+}

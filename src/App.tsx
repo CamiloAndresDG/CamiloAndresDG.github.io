@@ -1,10 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Github, Linkedin, Mail, ChevronDown, ExternalLink, Code2, Languages, MapPin, Sun, Moon } from 'lucide-react';
+import { Github, Linkedin, Mail, ChevronDown, ExternalLink, Code2, Languages, MapPin, Sun, Moon, Dumbbell, Music, Palette, Plane, Camera, Code, Heart, ChefHat, Rocket } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from './hooks/useTheme';
 import { useLanguage } from './hooks/useLanguage';
 import Map from './components/Map';
 import Footer from './components/Footer';
+import AnimatedSection from './components/AnimatedSection';
+import ImageCarousel from './components/ImageCarousel';
+import { getImagesFromFolder, createImageObject } from './utils/imageUtils';
 
 function BackgroundAnimation() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -225,6 +229,61 @@ function Header() {
 function App() {
   const { t } = useTranslation();
   const [activeSection, setActiveSection] = useState('home');
+  const { theme } = useTheme();
+  const [interestImages, setInterestImages] = useState<{
+    [key: string]: Array<{ url: string; alt: string; description: string; }>;
+  }>({});
+
+  useEffect(() => {
+    const loadImages = async () => {
+      const categories = ['hobbies', 'interests', 'passions'];
+      const images: { [key: string]: Array<{ url: string; alt: string; description: string; }> } = {};
+
+      for (const category of categories) {
+        const imageUrls = await getImagesFromFolder(category);
+        images[category] = imageUrls.map(url => createImageObject(url, category));
+      }
+
+      setInterestImages(images);
+    };
+
+    loadImages();
+  }, []);
+
+  const interests = [
+    {
+      category: "Hobbies",
+      icon: <Dumbbell className="w-8 h-8" />,
+      items: [
+        { name: "Sports", icon: <Dumbbell className="w-4 h-4" /> },
+        { name: "Music", icon: <Music className="w-4 h-4" /> },
+        { name: "Painting", icon: <Palette className="w-4 h-4" /> }
+      ],
+      description: "Physical activities, creating melodies, and expressing through art",
+      images: interestImages['hobbies'] || []
+    },
+    {
+      category: "Interests",
+      icon: <Heart className="w-8 h-8" />,
+      items: [
+        { name: "Photography", icon: <Camera className="w-4 h-4" /> },
+        { name: "Cooking", icon: <ChefHat className="w-4 h-4" /> }
+      ],
+      description: "Capturing moments and creating culinary experiences",
+      images: interestImages['interests'] || []
+    },
+    {
+      category: "Passions",
+      icon: <Rocket className="w-8 h-8" />,
+      items: [
+        { name: "Programming", icon: <Code className="w-4 h-4" /> },
+        { name: "Data Science", icon: <Code2 className="w-4 h-4" /> },
+        { name: "Traveling", icon: <Plane className="w-4 h-4" /> }
+      ],
+      description: "Building solutions, analyzing data, and exploring the world",
+      images: interestImages['passions'] || []
+    }
+  ];
 
   useEffect(() => {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -488,6 +547,65 @@ function App() {
           </div>
         </div>
       </section>
+
+      <AnimatedSection delay={0.6}>
+        <section className="py-20 bg-gray-50 dark:bg-gray-800">
+          <div className="max-w-6xl mx-auto px-4">
+            <h2 className="text-3xl font-light text-center mb-16 text-gray-900 dark:text-white">
+              {t('interests.title')}
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <AnimatePresence>
+                {interests.map((interest, index) => (
+                  <motion.div
+                    key={interest.category}
+                    className="relative overflow-hidden rounded-xl bg-white dark:bg-gray-700 shadow-lg group hover:shadow-xl transition-shadow duration-300"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{ 
+                      duration: 0.5, 
+                      delay: index * 0.2,
+                      ease: [0.22, 1, 0.36, 1]
+                    }}
+                    whileHover={{ y: -5 }}
+                  >
+                    {interest.images.length > 0 && (
+                      <ImageCarousel 
+                        images={interest.images.map(img => ({
+                          ...img,
+                          alt: interest.category,
+                          description: undefined
+                        }))}
+                        height="h-48"
+                        interval={4000}
+                      />
+                    )}
+                    <div className="p-6">
+                      <p className="text-gray-600 dark:text-gray-300 mb-4">
+                        {interest.description}
+                      </p>
+                      <div className="flex flex-wrap gap-2">
+                        {interest.items.map((item, itemIndex) => (
+                          <motion.span
+                            key={itemIndex}
+                            className="flex items-center gap-1 px-3 py-1 bg-gray-100 dark:bg-gray-600 text-gray-700 dark:text-gray-300 rounded-full text-sm"
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                          >
+                            {item.icon}
+                            {item.name}
+                          </motion.span>
+                        ))}
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+              </AnimatePresence>
+            </div>
+          </div>
+        </section>
+      </AnimatedSection>
 
       <section id="contact" className="py-20 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white">
         <div className="max-w-4xl mx-auto px-4 text-center">
