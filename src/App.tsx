@@ -199,6 +199,7 @@ function Header() {
           <a href="#about" className={getNavLinkClass('about')}>{t('header.about')}</a>
           <a href="#experience" className={getNavLinkClass('experience')}>{t('header.experience')}</a>
           <a href="#projects" className={getNavLinkClass('projects')}>{t('header.projects')}</a>
+          <a href="#interests" className={getNavLinkClass('interests')}>{t('header.interests')}</a>
           <a href="#contact" className={getNavLinkClass('contact')}>{t('header.contact')}</a>
         </div>
         <div className="flex items-center space-x-4">
@@ -549,7 +550,7 @@ function App() {
       </section>
 
       <AnimatedSection delay={0.6}>
-        <section className="py-20 bg-gray-50 dark:bg-gray-800">
+        <section id="interests" className="py-20 bg-gray-50 dark:bg-gray-800">
           <div className="max-w-6xl mx-auto px-4">
             <h2 className="text-3xl font-light text-center mb-16 text-gray-900 dark:text-white">
               {t('interests.title')}
@@ -559,16 +560,11 @@ function App() {
                 {interests.map((interest, index) => (
                   <motion.div
                     key={interest.category}
-                    className="relative overflow-hidden rounded-xl bg-white dark:bg-gray-700 shadow-lg group hover:shadow-xl transition-shadow duration-300"
+                    className="relative overflow-hidden rounded-xl bg-white dark:bg-gray-700 shadow-lg group"
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -20 }}
-                    transition={{ 
-                      duration: 0.5, 
-                      delay: index * 0.2,
-                      ease: [0.22, 1, 0.36, 1]
-                    }}
-                    whileHover={{ y: -5 }}
+                    transition={{ duration: 0.5, delay: index * 0.2 }}
                   >
                     {interest.images.length > 0 && (
                       <ImageCarousel 
@@ -587,15 +583,13 @@ function App() {
                       </p>
                       <div className="flex flex-wrap gap-2">
                         {interest.items.map((item, itemIndex) => (
-                          <motion.span
+                          <span
                             key={itemIndex}
                             className="flex items-center gap-1 px-3 py-1 bg-gray-100 dark:bg-gray-600 text-gray-700 dark:text-gray-300 rounded-full text-sm"
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
                           >
                             {item.icon}
                             {item.name}
-                          </motion.span>
+                          </span>
                         ))}
                       </div>
                     </div>
