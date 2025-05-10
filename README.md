@@ -36,9 +36,9 @@ Check out the live version [here](https://camiloandresdg.github.io/)!
 
 ## 🖋️ Author
 
-**Camilo Andrés Díaz Gómez**  
+**Camilo Andres Diaz Gomez**  
 - [GitHub](https://github.com/CamiloAndresDG)  
-- [LinkedIn](https://www.linkedin.com/in/camilo-andres-diaz-gomez-73cadg008/)  
+- [LinkedIn](https://www.linkedin.com/in/camiloandresdg/)  
 
 ## 📄 License
 

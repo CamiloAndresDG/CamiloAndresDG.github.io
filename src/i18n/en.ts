@@ -15,7 +15,7 @@ export default {
     title: 'About Me',
     greeting: 'Hi, I\'m Camilo Diaz.',
     description1: 'I help companies and researchers analyze, transform, and visualize their data. My expertise lies in data engineering, ETL processes, and machine learning, ensuring that insights are not only accurate but also effectively communicated. If you need guidance on building scalable data pipelines or creating compelling visualizations, I\'m here to help.',
-    description2: 'With over three years of experience in data science and engineering, I have worked in consulting roles for industries like finance, healthcare, and telecommunications. I\'m currently pursuing a master\'s degree in Data Science, Big Data, and AI at the <a href="https://www.ucm.es" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300">Complutense University of Madrid</a> while working as a consultant, continuously expanding my expertise in advanced analytics and data-driven solutions.'
+    description2: 'With over three years of experience in data science and engineering, I have worked in consulting roles for industries like finance, healthcare, and telecommunications. I\'m currently pursuing a master\'s degree in Data Science, Big Data, and AI at the <a href="https://www.ucm.es/estudios/master-ciencia-datos" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300">Complutense University of Madrid</a> while working as a consultant, continuously expanding my expertise in advanced analytics and data-driven solutions.'
   },
   experience: {
     title: 'Work Experience',
@@ -37,12 +37,12 @@ export default {
   },
   projects: {
     featured: {
-      title: 'Featured Project',
+      title: 'Latest Project',
       description: 'A gamified platform that enhances cognitive health in older adults while ethically collecting non-personal data to train AI models. Recognized with the Innovation Award at the OdiseIA4Good Hackathon.'
     },
     title: 'Personal Projects',
     viewProject: 'View Project',
-    viewOnGithub: 'View on GitHub'
+    viewOnGithub: '<a href="#" class="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300">View on GitHub</a>'
   },
   interests: {
     title: 'Interests & Passions',

@@ -15,7 +15,7 @@ export default {
     title: 'Sobre Mí',
     greeting: 'Hola, soy Camilo Diaz.',
     description1: 'Ayudo a empresas e investigadores a analizar, transformar y visualizar sus datos. Mi experiencia se centra en ingeniería de datos, procesos ETL y machine learning, asegurando que los insights no solo sean precisos sino también efectivamente comunicados. Si necesitas orientación para construir pipelines de datos escalables o crear visualizaciones convincentes, estoy aquí para ayudar.',
-    description2: 'Con más de tres años de experiencia en ciencia e ingeniería de datos, he trabajado como consultor para industrias como finanzas, salud y telecomunicaciones. Actualmente estoy cursando un máster en Ciencia de Datos, Big Data e IA en la <a href="https://www.ucm.es" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300">Universidad Complutense de Madrid</a> mientras trabajo como consultor, expandiendo continuamente mi experiencia en análisis avanzado y soluciones basadas en datos.'
+    description2: 'Con más de tres años de experiencia en ciencia e ingeniería de datos, he trabajado como consultor para industrias como finanzas, salud y telecomunicaciones. Actualmente estoy cursando un máster en Ciencia de Datos, Big Data e IA en la <a href="https://www.ucm.es/estudios/master-ciencia-datos" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300">Universidad Complutense de Madrid</a> mientras trabajo como consultor, expandiendo continuamente mi experiencia en análisis avanzado y soluciones basadas en datos.'
   },
   experience: {
     title: 'Experiencia Laboral',
@@ -37,12 +37,12 @@ export default {
   },
   projects: {
     featured: {
-      title: 'Proyecto Destacado',
+      title: 'Último Proyecto',
       description: 'Una plataforma gamificada que mejora la salud cognitiva en adultos mayores mientras recopila éticamente datos no personales para entrenar modelos de IA. Reconocido con el Premio a la Innovación en el Hackathon OdiseIA4Good.'
     },
     title: 'Proyectos Personales',
     viewProject: 'Ver Proyecto',
-    viewOnGithub: 'Ver en GitHub'
+    viewOnGithub: '<a href="#" class="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300">Ver en GitHub</a>'
   },
   interests: {
     title: 'Intereses y Pasiones',
