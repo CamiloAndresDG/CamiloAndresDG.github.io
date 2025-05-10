@@ -73,12 +73,13 @@ export default {
   },
   footer: {
     copyright: 'Copyright © Camilo Díaz 2025',
-    privacy: 'Política de Privacidad',
-    terms: 'Términos de Uso',
-    credits: 'Inspirado por',
     theme: {
       light: 'Modo Claro',
       dark: 'Modo Oscuro'
+    },
+    language: {
+      en: 'Inglés',
+      es: 'Español'
     }
   }
 };

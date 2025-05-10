@@ -72,13 +72,13 @@ export default {
     location: 'Madrid, Spain'
   },
   footer: {
-    copyright: 'Copyright © Camilo Diaz 2025',
-    privacy: 'Privacy Policy',
-    terms: 'Terms of Use',
-    credits: 'Inspired by',
     theme: {
       light: 'Light Mode',
       dark: 'Dark Mode'
+    },
+    language: {
+      en: 'English',
+      es: 'Spanish'
     }
   }
 };

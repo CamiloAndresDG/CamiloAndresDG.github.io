@@ -1,45 +1,118 @@
-# Camilo Andrés Díaz Gómez - Personal Website 🌐
+# Personal Portfolio Website
 
-Welcome to the repository for my personal website! This is a showcase of my projects, achievements, and other cool stuff. Feel free to explore and get inspired!
+A personal portfolio website built with React, TypeScript, and Tailwind CSS. The website features smooth animations, dark mode support, and multilingual capabilities.
 
 ## 🌟 Features
 
-- A portfolio of my projects 🛠️  
-- Blog posts and articles 📝  
-- Links to my social media profiles 📱  
-- Contact form for collaboration inquiries 📬  
+### Core Features
+- **Responsive Design**: Fully responsive layout that works on all devices
+- **Dark/Light Mode**: Toggle between dark and light themes
+- **Multilingual Support**: English and Spanish language support
+- **Smooth Animations**: Elegant animations using Framer Motion
+- **Modern UI**: Clean and professional design using Tailwind CSS
 
-## 🛠️ Technologies Used
+### Sections
+1. **Home**
+   - Animated background with interactive particles
+   - Smooth scroll navigation
+   - Social media links with hover effects
+   - Animated astronaut icon
 
-- **Frontend**: HTML, CSS, JavaScript  
-<!-- - **Other Tools**: [Frameworks or libraries, e.g., React, TailwindCSS]   -->
+2. **About**
+   - Professional profile section
+   - Animated text transitions
+   - Responsive image layout
 
-## 📂 Project Structure
+3. **Experience**
+   - Interactive timeline of work experience
+   - Animated company logos
+   - Skill tags with hover effects
+   - Detailed role descriptions
 
-- **personal-website/**
-  - `index.html`: Home page
-  - **blog/**: Blog posts and articles
-    - `post1.html`: Blog post 1 ([I National and International Meeting and III Inter-Institutional Meeting of Research Seedbeds](https://sitio.usanjose.edu.co/wp-content/uploads/2020/12/Memorias-Encuentro.pdf))
-    - `...`: Additional blog posts
-  - **resource/**: Images, icons, and other media
-    <!-- - **images/**: Image files
-    - **icons/**: Icon files -->
-    <!-- - `...`: Additional assets -->
-  - `styles.css`: Main stylesheet
-  - `main.js`: Main script
-  - `License`: License file
-  - `README.md`: Project documentation
+4. **Projects**
+   - Featured project showcase
+   - Project cards with animations
+   - Technology tags
+   - GitHub integration
+   - Dynamic image loading
+
+5. **Interests**
+   - Interactive cards for hobbies, interests, and passions
+   - Image carousel for each category
+   - Animated icons and descriptions
+   - Dynamic content loading
+
+6. **Contact**
+   - Interactive contact buttons
+   - Calendly integration
+   - Social media links
+   - Interactive map
+   - Email integration
+
+## 🛠️ Technologies
+
+- **Frontend Framework**: React with TypeScript
+- **Styling**: Tailwind CSS
+- **Animations**: Framer Motion
+- **Internationalization**: i18next
+- **Icons**: Lucide Icons
+- **Maps**: Custom Map Component
+- **Image Handling**: Dynamic image loading and carousel
+
+## 🚀 Getting Started
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/CamiloAndresDG/CamiloAndresDG.github.io.git
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Start the development server:
+   ```bash
+   npm run dev
+   ```
+
+4. Build for production:
+   ```bash
+   npm run build
+   ```
+
+## 📁 Project Structure
+
+```
+src/
+├── components/         # Reusable components
+├── hooks/             # Custom React hooks
+├── utils/             # Utility functions
+├── i18n/              # Internationalization files
+├── styles/            # Global styles
+└── App.tsx           # Main application component
+```
 
 ## 🌐 Live Demo
 
-Check out the live version [here](https://camiloandresdg.github.io/)!  
+Visit the live website at: [https://camiloandresdg.github.io](https://camiloandresdg.github.io)
 
-## 🖋️ Author
+## 🤝 Contributing
 
-**Camilo Andres Diaz Gomez**  
-- [GitHub](https://github.com/CamiloAndresDG)  
-- [LinkedIn](https://www.linkedin.com/in/camiloandresdg/)  
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-## 📄 License
+## 📝 License
 
-This project is licensed under the [MIT License](https://opensource.org/license/mit).
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 👨‍💻 Author
+
+- **Camilo Diaz**
+  - GitHub: [@CamiloAndresDG](https://github.com/CamiloAndresDG)
+  - LinkedIn: [Camilo Diaz](https://www.linkedin.com/in/camiloandresdg/)
+  - Email: camiloandres2288@hotmail.com
+
+## 🙏 Acknowledgments
+
+- Thanks to all the open-source libraries and tools that made this project possible
+- Special thanks to the React and Tailwind CSS communities for their excellent documentation
