@@ -72,7 +72,8 @@ export default {
     location: 'Madrid, España'
   },
   footer: {
-    copyright: 'Copyright © Camilo Díaz 2025',
+    copyright: 'Copyright © Camilo Diaz 2025',
+    credits: 'Inspirado por',
     theme: {
       light: 'Modo Claro',
       dark: 'Modo Oscuro'
