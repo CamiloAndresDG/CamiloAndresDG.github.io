@@ -5,7 +5,7 @@ export default function Footer() {
   const { t } = useTranslation();
 
   return (
-    <footer className="py-8 bg-gray-100 dark:bg-gray-900">
+    <footer className="py-8 bg-gray-50 dark:bg-gray-800">
       <div className="max-w-6xl mx-auto px-4">
         <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
           <div className="text-gray-600 dark:text-gray-400">

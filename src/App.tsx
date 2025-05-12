@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import { Github, Linkedin, Mail, ChevronDown, ExternalLink, Code2, Languages, MapPin, Sun, Moon, Dumbbell, Music, Palette, Plane, Camera, Code, Heart, ChefHat, Rocket, Calendar } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -6,6 +6,7 @@ import { useTheme } from './hooks/useTheme';
 import { useLanguage } from './hooks/useLanguage';
 import Map from './components/Map';
 import Footer from './components/Footer';
+import Header from './components/Header';
 import AnimatedSection from './components/AnimatedSection';
 import ImageCarousel from './components/ImageCarousel';
 import { getImagesFromFolder, createImageObject } from './utils/imageUtils';
@@ -46,7 +47,7 @@ function BackgroundAnimation() {
 
       const numberOfParticles = (canvas.width * canvas.height) / 9000;
       for (let i = 0; i < numberOfParticles; i++) {
-        const radius = Math.random() * 2 + 1;
+        const radius = Math.random() * 2 + 0.5;
         const x = Math.random() * canvas.width;
         const y = Math.random() * canvas.height;
         particlesRef.current.push({
@@ -55,9 +56,9 @@ function BackgroundAnimation() {
           radius,
           baseX: x,
           baseY: y,
-          density: Math.random() * 50 + 20,
-          speed: Math.random() * 0 + 0.2,
-          angle: Math.random() * Math.PI * 2
+          density: Math.random() * 100 + 10,
+          speed: Math.random() * 0.2 + 0.2,
+          angle: Math.random() * Math.PI * 5
         });
       }
     };
@@ -88,11 +89,11 @@ function BackgroundAnimation() {
       if (!ctx || !canvas) return;
 
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      timeRef.current += 0.02;
+      timeRef.current += 0.005;
 
       particlesRef.current.forEach(particle => {
-        particle.angle += particle.speed * 0.02;
-        const moveRadius = 50;
+        particle.angle += particle.speed * 0.005;
+        const moveRadius = 30;
         const autoX = particle.baseX + Math.cos(particle.angle) * moveRadius;
         const autoY = particle.baseY + Math.sin(particle.angle) * moveRadius;
 
@@ -101,10 +102,10 @@ function BackgroundAnimation() {
         const distance = Math.sqrt(dx * dx + dy * dy);
         const forceDirectionX = dx / distance;
         const forceDirectionY = dy / distance;
-        const maxDistance = 150;
+        const maxDistance = 100;
         const force = (maxDistance - distance) / maxDistance;
-        const directionX = forceDirectionX * force * particle.density * 2;
-        const directionY = forceDirectionY * force * particle.density * 2;
+        const directionX = forceDirectionX * force * particle.density;
+        const directionY = forceDirectionY * force * particle.density;
 
         if (distance < maxDistance) {
           particle.x = autoX - directionX;
@@ -130,8 +131,54 @@ function BackgroundAnimation() {
       mouseRef.current.y = event.clientY - rect.top;
     };
 
+    const handleClick = (event: MouseEvent) => {
+      const rect = canvas.getBoundingClientRect();
+      const clickX = event.clientX - rect.left;
+      const clickY = event.clientY - rect.top;
+
+      // Crear líneas de explosión
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return;
+
+      // Dibujar líneas de explosión
+      for (let i = 0; i < 20; i++) {
+        const angle = (i / 20) * Math.PI * 2;
+        const length = 50 + Math.random() * 50;
+        
+        ctx.beginPath();
+        ctx.moveTo(clickX, clickY);
+        ctx.lineTo(
+          clickX + Math.cos(angle) * length,
+          clickY + Math.sin(angle) * length
+        );
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.5)';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+      }
+
+      // Efecto en partículas
+      particlesRef.current.forEach(particle => {
+        const dx = clickX - particle.x;
+        const dy = clickY - particle.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        
+        if (distance < 300) {
+          const angle = Math.atan2(dy, dx);
+          const force = 5000 / (distance + 1);
+          
+          particle.x = clickX + Math.cos(angle) * (distance + force);
+          particle.y = clickY + Math.sin(angle) * (distance + force);
+          particle.speed = Math.random() * 0.8 + 0.4;
+          particle.angle = angle;
+          particle.baseX = particle.x;
+          particle.baseY = particle.y;
+        }
+      });
+    };
+
     window.addEventListener('resize', handleResize);
     canvas.addEventListener('mousemove', handleMouseMove);
+    canvas.addEventListener('click', handleClick);
 
     init();
     animate();
@@ -139,6 +186,7 @@ function BackgroundAnimation() {
     return () => {
       window.removeEventListener('resize', handleResize);
       canvas.removeEventListener('mousemove', handleMouseMove);
+      canvas.removeEventListener('click', handleClick);
     };
   }, []);
 
@@ -147,89 +195,6 @@ function BackgroundAnimation() {
       ref={canvasRef}
       className="absolute inset-0 w-full h-full bg-gray-900"
     />
-  );
-}
-
-function Header() {
-  const { t, i18n } = useTranslation();
-  const { currentLanguage, toggleLanguage } = useLanguage();
-  const { theme, toggleTheme } = useTheme();
-  const [activeSection, setActiveSection] = useState('home');
-
-  const handleLanguageChange = () => {
-    const newLang = currentLanguage === 'en' ? 'es' : 'en';
-    i18n.changeLanguage(newLang);
-    toggleLanguage();
-  };
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveSection(entry.target.id);
-          }
-        });
-      },
-      { threshold: 0.5 }
-    );
-
-    document.querySelectorAll('section[id]').forEach((section) => {
-      observer.observe(section);
-    });
-
-    return () => observer.disconnect();
-  }, []);
-
-  const getNavLinkClass = (section: string) => {
-    return `transition-all duration-200 ${
-      activeSection === section
-        ? 'text-blue-600 dark:text-blue-400 font-medium'
-        : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white'
-    }`;
-  };
-
-  const getNextLanguageInfo = () => {
-    return currentLanguage === 'en' 
-      ? { flag: 'https://flagcdn.com/w40/es.png', text: 'ES' }
-      : { flag: 'https://flagcdn.com/w40/gb.png', text: 'EN' };
-  };
-
-  const nextLang = getNextLanguageInfo();
-
-  return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm">
-      <nav className="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
-        <div className="flex space-x-6">
-          <a href="#home" className={getNavLinkClass('home')}>{t('header.home')}</a>
-          <a href="#about" className={getNavLinkClass('about')}>{t('header.about')}</a>
-          <a href="#experience" className={getNavLinkClass('experience')}>{t('header.experience')}</a>
-          <a href="#latest_project" className={getNavLinkClass('latest_project')}>{t('header.projects')}</a>
-          <a href="#interests" className={getNavLinkClass('interests')}>{t('header.interests')}</a>
-          <a href="#contact" className={getNavLinkClass('contact')}>{t('header.contact')}</a>
-        </div>
-        <div className="flex items-center space-x-4">
-          <button
-            onClick={handleLanguageChange}
-            className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"
-          >
-            <img 
-              src={nextLang.flag}
-              alt={currentLanguage === 'en' ? 'Español' : 'English'}
-              className="w-6 h-4"
-            />
-            <span>{nextLang.text}</span>
-          </button>
-          <button
-            onClick={toggleTheme}
-            className="p-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"
-            aria-label={theme === 'dark' ? t('footer.theme.light') : t('footer.theme.dark')}
-          >
-            {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
-          </button>
-        </div>
-      </nav>
-    </header>
   );
 }
 
@@ -257,56 +222,46 @@ function App() {
     loadImages();
   }, []);
 
-  const interests = [
+  const interests = useMemo(() => [
     {
-      category: "Hobbies",
+      category: t('interests.hobbies.title'),
       icon: <Dumbbell className="w-8 h-8" />,
       items: [
-        { name: "Sports", icon: <Dumbbell className="w-4 h-4" /> },
-        { name: "Music", icon: <Music className="w-4 h-4" /> },
-        { name: "Painting", icon: <Palette className="w-4 h-4" /> }
+        { name: t('interests.hobbies.sports'), icon: <Dumbbell className="w-4 h-4" /> },
+        { name: t('interests.hobbies.music'), icon: <Music className="w-4 h-4" /> },
+        { name: t('interests.hobbies.painting'), icon: <Palette className="w-4 h-4" /> }
       ],
-      description: (
-        <>
-          <p>Physical activities, creating melodies, and expressing through art.</p>
-          <p>These activities help me disconnect, stay energized, and express myself.</p>
-        </>
-      ),
+      description: t('interests.hobbies.description'),
       images: interestImages['hobbies'] || []
     },
     {
-      category: "Interests",
+      category: t('interests.interests.title'),
       icon: <Heart className="w-8 h-8" />,
       items: [
-        { name: "Photography", icon: <Camera className="w-4 h-4" /> },
-        { name: "Cooking", icon: <ChefHat className="w-4 h-4" /> },
-        { name: "Traveling", icon: <Plane className="w-4 h-4" /> }
+        { name: t('interests.interests.photography'), icon: <Camera className="w-4 h-4" /> },
+        { name: t('interests.interests.cooking'), icon: <ChefHat className="w-4 h-4" /> },
+        { name: t('interests.interests.traveling'), icon: <Plane className="w-4 h-4" /> }
       ],
-      description: (
-        <>
-          <p>Capturing moments and creating culinary experiences.</p>
-          <p>I share various types of photos on my personal Instagram account, <a href="https://www.instagram.com/pocket._.lens/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300">@pocket._.lens</a>, including landscapes, portraits, urban scenes, and creative compositions.</p>
-        </>
-      ),
+      description: t('interests.interests.description'),
       images: interestImages['interests'] || []
     },
     {
-      category: "Passions",
+      category: t('interests.passions.title'),
       icon: <Rocket className="w-8 h-8" />,
       items: [
-        { name: "Programming", icon: <Code className="w-4 h-4" /> },
-        { name: "Data Science", icon: <Code2 className="w-4 h-4" /> },
-        { name: "Aeronautic", icon: <Plane className="w-4 h-4" /> },
-        { name: "Astronomy", icon: <Rocket className="w-4 h-4" /> }
+        { name: t('interests.passions.programming'), icon: <Code className="w-4 h-4" /> },
+        { name: t('interests.passions.dataScience'), icon: <Code2 className="w-4 h-4" /> },
+        { name: t('interests.passions.aeronautic'), icon: <Plane className="w-4 h-4" /> },
+        { name: t('interests.passions.astronomy'), icon: <Rocket className="w-4 h-4" /> }
       ],
-      description: "Building solutions, analyzing data, and exploring the world.",
+      description: t('interests.passions.description'),
       images: interestImages['passions'] || []
     }
-  ];
+  ], [t, interestImages]);
 
   useEffect(() => {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
+      anchor.addEventListener('click', function(this: HTMLAnchorElement, e: Event) {
         e.preventDefault();
         const href = this.getAttribute('href');
         if (href) {
@@ -517,6 +472,7 @@ function App() {
               {
                 company: "Qaracter",
                 logo: "https://media.licdn.com/dms/image/v2/D4D0BAQEu4mQIjaGb1A/company-logo_200_200/company-logo_200_200/0/1698059452188/qaracter___beyond_your_challenge_logo?e=2147483647&v=beta&t=ZhNEDFZoGoaAeLetLANZcXHBd9hXCyLldUV-5GLaiNg",
+                website: "https://www.qaracter.com/",
                 title: t('experience.qaracter.title'),
                 period: t('experience.qaracter.period'),
                 description: t('experience.qaracter.description'),
@@ -525,6 +481,7 @@ function App() {
               {
                 company: "Publicis Sapient",
                 logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/PS_Logo_RGB.svg/1200px-PS_Logo_RGB.svg.png",
+                website: "https://www.publicissapient.com/",
                 title: t('experience.publicis.title'),
                 period: t('experience.publicis.period'),
                 description: t('experience.publicis.description'),
@@ -533,6 +490,7 @@ function App() {
               {
                 company: "EY",
                 logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/EY_logo_2019.svg/1200px-EY_logo_2019.svg.png",
+                website: "https://www.ey.com/",
                 title: t('experience.ey.title'),
                 period: t('experience.ey.period'),
                 description: t('experience.ey.description'),
@@ -552,15 +510,20 @@ function App() {
                   whileHover={{ scale: 1.05 }}
                   transition={{ duration: 0.2 }}
                 >
-                  <div className="w-12 h-12 flex items-center justify-center bg-white rounded-lg">
+                  <a 
+                    href={job.website}
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="w-12 h-12 flex items-center justify-center bg-white rounded-lg"
+                  >
                     <img 
-                      src={job.logo} 
-                      alt={job.company} 
-                      className="w-10 h-10 object-contain"
-                    />
-                  </div>
+                      src={job.logo}
+                      alt={job.company}
+                       className="w-10 h-10 object-contain"
+                  />
+                  </a>
                 </motion.div>
-                <div>
+              <div>
                   <motion.h3 
                     className="text-xl font-medium text-gray-900 dark:text-white"
                     initial={{ opacity: 0, y: 10 }}
@@ -647,8 +610,8 @@ function App() {
               transition={{ duration: 0.2 }}
             >
               <img
-                src="https://raw.githubusercontent.com/CamiloAndresDG/SeniorTrAIning/refs/heads/main/img/logo.jpg"
-                alt="SeniorTrAIning"
+                src="/CaptureWebPage.png"
+                alt="Portfolio Website"
                 className="rounded-lg shadow-xl w-full"
               />
             </motion.div>
@@ -666,7 +629,7 @@ function App() {
                 transition={{ duration: 0.3, delay: 0.3 }}
                 viewport={{ once: true }}
               >
-                SeniorTrAIning
+                {t('projects.portfolio.title')}
               </motion.h3>
               <motion.p 
                 className="text-gray-700 dark:text-gray-300 mb-6"
@@ -675,10 +638,10 @@ function App() {
                 transition={{ duration: 0.3, delay: 0.4 }}
                 viewport={{ once: true }}
               >
-                {t('projects.featured.description')}
+                {t('projects.portfolio.description')}
               </motion.p>
               <motion.a 
-                href="https://github.com/CamiloAndresDG/SeniorTrAIning"
+                href="https://github.com/CamiloAndresDG/CamiloAndresDG.github.io"
                 className="inline-flex items-center text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -705,32 +668,86 @@ function App() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {[
               {
-                title: "VocalMind",
-                description: "A machine learning-based system that detects depression and anxiety through voice analysis, leveraging audio spectrograms and additional features to predict emotional states. Designed for early detection and mental health support.",
+                title: t('projects.portfolio.title'),
+                description: t('projects.portfolio.description'),
+                github: "https://github.com/CamiloAndresDG/CamiloAndresDG.github.io",
+                icon: "/LogoPortafolio.png",
+                tags: [
+                  t('projects.tags.portfolio.react'),
+                  t('projects.tags.portfolio.typescript'),
+                  t('projects.tags.portfolio.tailwind'),
+                  t('projects.tags.portfolio.framer'),
+                  t('projects.tags.portfolio.i18n'),
+                  t('projects.tags.portfolio.responsive')
+                ]
+              },
+              {
+                title: t('projects.vocalmind.title'),
+                description: t('projects.vocalmind.description'),
                 github: "https://github.com/CamiloAndresDG/VocalMind",
                 icon: "https://raw.githubusercontent.com/CamiloAndresDG/VocalMind/main/VocalMind_Icon.png",
-                tags: ["Python", "Machine Learning", "Audio Analysis", "Data Analysis", "Mental Health"]
+                tags: [
+                  t('projects.tags.vocalmind.python'),
+                  t('projects.tags.vocalmind.ml'),
+                  t('projects.tags.vocalmind.audio'),
+                  t('projects.tags.vocalmind.data'),
+                  t('projects.tags.vocalmind.health')
+                ]
               },
               {
-                title: "NeuralCrime",
-                description: "A data-driven crime analysis and prediction system for Los Angeles, leveraging publicly available crime records from 2020 to present. The project involves data extraction, processing, visualization, and predictive modeling to identify crime patterns and trends, aiding in informed decision-making and public safety initiatives.",
+                title: t('projects.neuralcrime.title'),
+                description: t('projects.neuralcrime.description'),
                 github: "https://github.com/CamiloAndresDG/Crime_Prediction_LA",
                 icon: "https://raw.githubusercontent.com/CamiloAndresDG/Crime_Prediction_LA/main/Neural_Crime_Icon.png",
-                tags: ["Python", "PySpark", "Apache Spark", "Pipeline", "ETL",  "Machine Learning", "Data Analysis", "Predictive Modeling", "Public Safety"]
+                tags: [
+                  t('projects.tags.neuralcrime.python'),
+                  t('projects.tags.neuralcrime.pyspark'),
+                  t('projects.tags.neuralcrime.spark'),
+                  t('projects.tags.neuralcrime.pipeline'),
+                  t('projects.tags.neuralcrime.etl'),
+                  t('projects.tags.neuralcrime.ml'),
+                  t('projects.tags.neuralcrime.analysis'),
+                  t('projects.tags.neuralcrime.prediction'),
+                  t('projects.tags.neuralcrime.safety')
+                ]
               },
               {
-                title: "NioTe",
-                description: "NioTe is a climate data simulation model designed to support IoT project development. By leveraging open-source climate data from reliable sources like Datos Abiertos Colombia and applying quality controls, it enables realistic data generation for specific regions in Colombia. Using Machine Learning techniques, NioTe captures patterns from historical climate data to create synthetic datasets that mimic real-world weather behavior.",
+                title: t('projects.seniortraining.title'),
+                description: t('projects.seniortraining.description'),
+                github: "https://github.com/CamiloAndresDG/SeniorTrAIning",
+                icon: "https://raw.githubusercontent.com/CamiloAndresDG/SeniorTrAIning/main/img/logoF.png",
+                tags: [
+                  t('projects.tags.seniortraining.python'),
+                  t('projects.tags.seniortraining.ml'),
+                  t('projects.tags.seniortraining.gamification'),
+                  t('projects.tags.seniortraining.health'),
+                  t('projects.tags.seniortraining.ethics')
+                ]
+              },
+              {
+                title: t('projects.niote.title'),
+                description: t('projects.niote.description'),
                 github: "https://github.com/CamiloAndresDG/NIOTE",
                 icon: "https://raw.githubusercontent.com/CamiloAndresDG/NIOTE/master/NIOTE_Icon.png",
-                tags: ["Python", "SQL", "Machine Learning", "IoT", "Climate Data", "Simulation"]
+                tags: [
+                  t('projects.tags.niote.python'),
+                  t('projects.tags.niote.sql'),
+                  t('projects.tags.niote.ml'),
+                  t('projects.tags.niote.iot'),
+                  t('projects.tags.niote.climate'),
+                  t('projects.tags.niote.simulation')
+                ]
               },
               {
-                title: "AereoUSB",
-                description: "AereoUSB is a Java-based airline management system developed as part of a Data Structures course. The project leverages various data structures to efficiently handle key airline resources, including fleet, crew, pilots, and flights. By ensuring clear and structured communication between agents and customers, AereoUSB enhances ticket purchasing, optimizes operations, and provides a reliable data management framework for airline services.",
+                title: t('projects.aereousb.title'),
+                description: t('projects.aereousb.description'),
                 github: "https://github.com/CamiloAndresDG/AereoUSB",
                 icon: "https://raw.githubusercontent.com/CamiloAndresDG/AereoUSB/main/AereoUSB_Icon.png",
-                tags: ["Java", "Data Structures", "Management System"]
+                tags: [
+                  t('projects.tags.aereousb.java'),
+                  t('projects.tags.aereousb.structures'),
+                  t('projects.tags.aereousb.management')
+                ]
               }
             ].map((project, index) => (
               <motion.div
@@ -741,7 +758,7 @@ function App() {
                 transition={{ duration: 0.5, delay: index * 0.2 }}
                 viewport={{ once: true }}
               >
-                <div className="relative h-64 w-full bg-gray-50 dark:bg-gray-700 p-4 flex items-center justify-center">
+                <div className="relative h-64 w-full bg-gray-100 dark:bg-gray-600 p-4 flex items-center justify-center">
                   <div className="w-full h-full flex items-center justify-center">
                     <img 
                       src={project.icon} 
@@ -749,7 +766,7 @@ function App() {
                       className="w-full h-full object-contain"
                       onError={(e) => {
                         const target = e.target as HTMLImageElement;
-                        target.src = "https://raw.githubusercontent.com/CamiloAndresDG/SeniorTrAIning/main/img/logo.jpg";
+                        target.src = "https://raw.githubusercontent.com/CamiloAndresDG/SeniorTrAIning/main/img/logoF.png";
                       }}
                     />
                   </div>
@@ -759,9 +776,17 @@ function App() {
                   <p className="text-gray-600 dark:text-gray-300 mb-4 text-sm">{project.description}</p>
                   <div className="flex flex-wrap gap-2 mb-4">
                     {project.tags.map((tag, tagIndex) => (
-                      <span key={tagIndex} className="px-2 py-1 bg-gray-50 dark:bg-gray-700 text-gray-600 dark:text-gray-300 text-xs rounded">
+                      <motion.span 
+                        key={tagIndex} 
+                        className="px-2 py-1 bg-gray-50 dark:bg-gray-700 text-gray-600 dark:text-gray-100 text-xs rounded"
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.2, delay: tagIndex * 0.1 }}
+                        viewport={{ once: true }}
+                        whileHover={{ scale: 1.05 }}
+                      >
                         {tag}
-                      </span>
+                      </motion.span>
                     ))}
                   </div>
                   <div 
@@ -785,59 +810,56 @@ function App() {
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
         >
-          <div className="max-w-6xl mx-auto px-4">
+        <div className="max-w-6xl mx-auto px-4">
             <h2 className="text-3xl font-light text-center mb-16 text-gray-900 dark:text-white">
               {t('interests.title')}
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <AnimatePresence>
-                {interests.map((interest, index) => (
-                  <motion.div
-                    key={interest.category}
-                    className="relative overflow-hidden rounded-xl bg-white dark:bg-gray-700 shadow-lg group"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -20 }}
-                    transition={{ duration: 0.5, delay: index * 0.2 }}
-                  >
-                    {interest.images.length > 0 && (
-                      <ImageCarousel 
-                        images={interest.images.map(img => ({
-                          ...img,
-                          alt: interest.category,
-                          description: undefined
-                        }))}
-                        height="h-48"
-                        interval={4000}
-                      />
-                    )}
-                    <div className="p-6">
-                      <p className="text-gray-600 dark:text-gray-300 mb-4">
-                        {interest.description}
-                      </p>
-                      <div className="flex flex-wrap gap-2">
-                        {interest.items.map((item, itemIndex) => (
-                          <span
-                            key={itemIndex}
-                            className="flex items-center gap-1 px-3 py-1 bg-gray-100 dark:bg-gray-600 text-gray-700 dark:text-gray-300 rounded-full text-sm"
-                          >
+              {interests.map((interest, index) => (
+                <div
+                  key={interest.category}
+                  className="relative overflow-hidden rounded-xl bg-white dark:bg-gray-700 shadow-lg group"
+                >
+                  {interest.images.length > 0 && (
+                    <ImageCarousel 
+                      images={interest.images.map(img => ({
+                        ...img,
+                        alt: interest.category,
+                        description: undefined
+                      }))}
+                      height="h-48"
+                      interval={4000}
+                    />
+                  )}
+                  <div className="p-6">
+                    <p 
+                      className="text-gray-600 dark:text-gray-300 mb-4"
+                      dangerouslySetInnerHTML={{ __html: interest.description }}
+                    />
+                    <div className="flex flex-wrap gap-2">
+                      {interest.items.map((item, itemIndex) => (
+                        <span 
+                          key={itemIndex}
+                          className="px-2 py-1 bg-gray-50 dark:bg-gray-600 text-gray-600 dark:text-white text-xs rounded-md hover:scale-105 transition-transform"
+                        >
+                          <span className="inline-flex items-center gap-1">
                             {item.icon}
                             {item.name}
                           </span>
-                        ))}
+                        </span>
+                      ))}
                       </div>
-                    </div>
-                  </motion.div>
-                ))}
-              </AnimatePresence>
-            </div>
+                </div>
+              </div>
+            ))}
           </div>
+        </div>
         </motion.section>
       </AnimatedSection>
 
       <motion.section 
         id="contact" 
-        className="py-20 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white"
+        className="py-20 bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
