@@ -16,16 +16,12 @@ A personal portfolio website built with React, TypeScript, and Tailwind CSS. The
    - Animated background with interactive particles
    - Smooth scroll navigation
    - Social media links with hover effects
-   - Animated astronaut icon
 
 2. **About**
    - Professional profile section
-   - Animated text transitions
-   - Responsive image layout
 
 3. **Experience**
    - Interactive timeline of work experience
-   - Animated company logos
    - Skill tags with hover effects
    - Detailed role descriptions
 
@@ -34,20 +30,15 @@ A personal portfolio website built with React, TypeScript, and Tailwind CSS. The
    - Project cards with animations
    - Technology tags
    - GitHub integration
-   - Dynamic image loading
 
 5. **Interests**
    - Interactive cards for hobbies, interests, and passions
    - Image carousel for each category
-   - Animated icons and descriptions
-   - Dynamic content loading
 
 6. **Contact**
-   - Interactive contact buttons
-   - Calendly integration
+   - Contact buttons
    - Social media links
    - Interactive map
-   - Email integration
 
 ## 🛠️ Technologies
 
