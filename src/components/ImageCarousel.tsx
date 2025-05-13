@@ -16,7 +16,7 @@ interface ImageCarouselProps {
 
 export default function ImageCarousel({ 
   images, 
-  height = "h-48", 
+  height = "h-40",
   autoPlay = true,
   interval = 5000 
 }: ImageCarouselProps) {
@@ -56,16 +56,17 @@ export default function ImageCarousel({
             src={images[currentImage].url}
             alt={images[currentImage].alt}
             className="h-full w-full object-cover"
+            loading="lazy"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-          <div className="absolute bottom-4 left-4 text-white">
-            <h3 className="text-xl font-medium">{images[currentImage].alt}</h3>
+          <div className="absolute bottom-3 left-3 text-white">
+            <h3 className="text-base font-medium">{images[currentImage].alt}</h3>
           </div>
         </motion.div>
       </AnimatePresence>
 
       {/* Indicadores de navegación */}
-      <div className="absolute bottom-4 right-4 flex gap-2">
+      <div className="absolute bottom-3 right-3 flex gap-1.5">
         {images.map((_, index) => (
           <button
             key={index}

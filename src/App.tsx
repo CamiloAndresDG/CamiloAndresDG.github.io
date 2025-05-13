@@ -47,7 +47,7 @@ function BackgroundAnimation() {
 
       const numberOfParticles = (canvas.width * canvas.height) / 9000;
       for (let i = 0; i < numberOfParticles; i++) {
-        const radius = Math.random() * 2 + 0.5;
+        const radius = Math.random() * 2 + 1;
         const x = Math.random() * canvas.width;
         const y = Math.random() * canvas.height;
         particlesRef.current.push({
@@ -57,7 +57,7 @@ function BackgroundAnimation() {
           baseX: x,
           baseY: y,
           density: Math.random() * 100 + 10,
-          speed: Math.random() * 0.2 + 0.2,
+          speed: Math.random() * 0.3 + 0.3,
           angle: Math.random() * Math.PI * 5
         });
       }
@@ -302,6 +302,7 @@ function App() {
                 src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/People/Astronaut.png"
                 alt="Astronaut Programmer"
                 className="w-24 h-24 inline-block"
+                loading="lazy"
               />
             </motion.div>
             Diaz
@@ -405,6 +406,7 @@ function App() {
                     src="https://avatars.githubusercontent.com/u/60698278?v=4"
                     alt="Camilo Diaz"
                     className="w-48 h-48 object-cover rounded-lg shadow-md"
+                    loading="lazy"
                   />
                 </div>
               </motion.div>
@@ -613,6 +615,7 @@ function App() {
                 src="/CaptureWebPage.png"
                 alt="Portfolio Website"
                 className="rounded-lg shadow-xl w-full"
+                loading="lazy"
               />
             </motion.div>
             <motion.div 
@@ -764,6 +767,7 @@ function App() {
                       src={project.icon} 
                       alt={`${project.title} icon`}
                       className="w-full h-full object-contain"
+                      loading="lazy"
                       onError={(e) => {
                         const target = e.target as HTMLImageElement;
                         target.src = "https://raw.githubusercontent.com/CamiloAndresDG/SeniorTrAIning/main/img/logoF.png";

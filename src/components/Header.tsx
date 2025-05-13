@@ -107,18 +107,23 @@ function Header() {
   };
 
   const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      const headerOffset = 80;
-      const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
-      });
-    }
+    // Close menu first
     setIsMenuOpen(false);
+    
+    // Add a small delay to ensure the menu is closed before scrolling
+    setTimeout(() => {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        const headerOffset = 80;
+        const elementPosition = element.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
+      }
+    }, 100);
   };
 
   const menuVariants = {
@@ -158,6 +163,7 @@ function Header() {
                   className="h-28 w-auto"
                   src="/LogoPortafolio.svg"
                   alt="Portfolio Logo"
+                  loading="lazy"
                 />
               </button>
             </Tooltip>
@@ -305,7 +311,7 @@ function Header() {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
-            className="md:hidden bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700"
+            className="md:hidden bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 fixed top-16 left-0 right-0 z-50"
           >
             <div className="px-4 py-2 space-y-1">
               {[

@@ -8,21 +8,21 @@ export default {
     contact: 'Contacto'
   },
   intro: {
-    title: '👋 ¡Hola! Soy ingeniero de datos bilingüe especializado en ETL, aprendizaje automático y soluciones en la nube. He trabajado en diversas industrias, desarrollando soluciones escalables basadas en datos. Siempre aprendiendo, siempre innovando. 💡',
+    title: '👋 ¡Hola! Soy ingeniero de datos bilingüe especializado en ingeniería de datos, aprendizaje automático y soluciones en la nube. He trabajado en diversas industrias, desarrollando soluciones escalables basadas en datos. Siempre aprendiendo, siempre innovando. 💡',
     description: 'Implementando transformación y visualización de datos con paneles interactivos.'
   },
   about: {
     title: 'Sobre Mí',
     greeting: 'Hola, soy Camilo Diaz.',
     description1: 'Ayudo a empresas e investigadores a analizar, transformar y visualizar sus datos. Mi experiencia se centra en ingeniería de datos, procesos ETL y machine learning, asegurando que los insights no solo sean precisos sino también efectivamente comunicados. Si necesitas orientación para construir pipelines de datos escalables o crear visualizaciones convincentes, estoy aquí para ayudar.',
-    description2: 'Con más de tres años de experiencia en ciencia e ingeniería de datos, he trabajado como consultor para industrias como finanzas, salud y telecomunicaciones. Actualmente estoy cursando un máster en Ciencia de Datos, Big Data e IA en la <a href="https://www.ucm.es/estudios/master-ciencia-datos" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300">Universidad Complutense de Madrid</a> mientras trabajo como consultor, expandiendo continuamente mi experiencia en análisis avanzado y soluciones basadas en datos.'
+    description2: 'Con más de tres años de experiencia en ingeniería y ciencia de datos, he trabajado como consultor para industrias como agroindustria, salud, energía, telecomunicaciones y banca. Actualmente estoy cursando un máster en Ciencia de Datos, Big Data e IA en la <a href="https://www.ucm.es/estudios/master-ciencia-datos" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300">Universidad Complutense de Madrid</a> mientras trabajo como consultor, expandiendo continuamente mi experiencia en análisis avanzado y soluciones basadas en datos.'
   },
   experience: {
     title: 'Experiencia Laboral',
     qaracter: {
       title: 'Business Consultant',
       period: 'Sept 2024 - Presente',
-      description: 'Implementé flujos de trabajo automatizados utilizando Alteryx y creé visualizaciones con Tableau en el sector bancario. Optimizé procesos de datos y mejoré la toma de decisiones mediante análisis avanzados. Aseguré la integración eficiente de fuentes de datos para obtener información procesable y apoyar decisiones estratégicas.'
+      description: 'Implementé flujos de trabajo utilizando Alteryx y para su posterior visualización con Tableau para cliente en el sector bancario. Optimizé y aseguré la integración eficiente de fuentes de datos para obtener información procesable y apoyar decisiones estratégicas.'
     },
     publicis: {
       title: 'Associate Data Engineering L2',
@@ -142,7 +142,7 @@ export default {
       sports: 'Deportes',
       music: 'Música',
       painting: 'Pintura',
-      description: 'Actividades físicas, crear melodías y expresarme a través del arte. Estas actividades me ayudan a desconectarme, mantenerme energizado y expresarme.'
+      description: 'Actividades físicas, escuchar música y expresarme a través del arte. Estas actividades me ayudan a desconectarme, mantenerme energizado y expresarme.'
     },
     interests: {
       title: 'Intereses',

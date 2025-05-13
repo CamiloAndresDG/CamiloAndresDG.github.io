@@ -8,21 +8,21 @@ export default {
     contact: 'Contact'
   },
   intro: {
-    title: '👋 Hi! I\'m a bilingual data engineer specializing in ETL, machine learning, and cloud solutions. I\'ve worked across multiple industries, building scalable data-driven solutions. Always learning, always innovating 💡',
+    title: '👋 Hi! I\'m a bilingual data engineer specializing in data engineering, machine learning, and cloud solutions. I\'ve worked across multiple industries, building scalable data-driven solutions. Always learning, always innovating 💡',
     description: 'Currently working on interactive data stories and machine learning projects.'
   },
   about: {
     title: 'About Me',
     greeting: 'Hi, I\'m Camilo Diaz.',
     description1: 'I help companies and researchers analyze, transform, and visualize their data. My expertise lies in data engineering, ETL processes, and machine learning, ensuring that insights are not only accurate but also effectively communicated. If you need guidance on building scalable data pipelines or creating compelling visualizations, I\'m here to help.',
-    description2: 'With over three years of experience in data science and engineering, I have worked in consulting roles for industries like finance, healthcare, and telecommunications. I\'m currently pursuing a master\'s degree in Data Science, Big Data, and AI at the <a href="https://www.ucm.es/estudios/master-ciencia-datos" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300">Complutense University of Madrid</a> while working as a consultant, continuously expanding my expertise in advanced analytics and data-driven solutions.'
+    description2: 'With over three years of experience in data engineering and data science , I have worked in consulting roles for industries like agribusiness, healthcare, energy, telecommunications, and banking. I\'m currently pursuing a master\'s degree in Data Science, Big Data, and AI at the <a href="https://www.ucm.es/estudios/master-ciencia-datos" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300">Complutense University of Madrid</a> while working as a consultant, continuously expanding my expertise in advanced analytics and data-driven solutions.'
   },
   experience: {
     title: 'Work Experience',
     qaracter: {
       title: 'Business Consultant',
       period: 'Sept 2024 - Present',
-      description: 'Implemented automated workflows using Alteryx and created visualizations with Tableau in the banking sector. Optimized data processes and enhanced decision-making through advanced analytics. Ensured the efficient integration of data sources to derive actionable insights and support strategic decisions.'
+      description: 'Implemented workflows using Alteryx and subsequently visualized them with Tableau for a client in the banking sector. I optimized and ensured the efficient integration of data sources to obtain actionable insights and support strategic decisions.'
     },
     publicis: {
       title: 'Associate Data Engineering L2',
@@ -142,7 +142,7 @@ export default {
       sports: 'Sports',
       music: 'Music',
       painting: 'Painting',
-      description: 'Physical activities, creating melodies, and expressing through art. These activities help me disconnect, stay energized, and express myself.'
+      description: 'Physical activities, listening to music, and expressing through art. These activities help me disconnect, stay energized, and express myself.'
     },
     interests: {
       title: 'Interests',
