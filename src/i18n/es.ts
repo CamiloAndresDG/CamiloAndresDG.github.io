@@ -8,7 +8,7 @@ export default {
     contact: 'Contacto'
   },
   intro: {
-    title: '👋 ¡Hola! Soy ingeniero de datos bilingüe especializado en ingeniería de datos, aprendizaje automático y soluciones en la nube. He trabajado en diversas industrias, desarrollando soluciones escalables basadas en datos. Siempre aprendiendo, siempre innovando. 💡',
+    title: '👋 ¡Hola! Soy consultor de datos bilingüe especializado en <strong>ingeniería de datos, aprendizaje automático y soluciones en la nube</strong>. He trabajado en diversas industrias, desarrollando soluciones escalables basadas en datos. Siempre aprendiendo, siempre innovando. 💡',
     description: 'Implementando transformación y visualización de datos con paneles interactivos.'
   },
   about: {

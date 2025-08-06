@@ -8,7 +8,7 @@ export default {
     contact: 'Contact'
   },
   intro: {
-    title: '👋 Hi! I\'m a bilingual data engineer specializing in data engineering, machine learning, and cloud solutions. I\'ve worked across multiple industries, building scalable data-driven solutions. Always learning, always innovating 💡',
+    title: '👋 Hi! I\'m a bilingual data consultant specializing in <strong>data engineering, machine learning, and cloud solutions</strong>. I\'ve worked across multiple industries, building scalable data-driven solutions. Always learning, always innovating 💡',
     description: 'Currently working on interactive data stories and machine learning projects.'
   },
   about: {

@@ -9,6 +9,8 @@ import Footer from './components/Footer';
 import Header from './components/Header';
 import AnimatedSection from './components/AnimatedSection';
 import ImageCarousel from './components/ImageCarousel';
+import ScrollFloatText from './components/ScrollFloatText';
+import ProfileCard from './components/ProfileCard';
 import { getImagesFromFolder, createImageObject } from './utils/imageUtils';
 
 function BackgroundAnimation() {
@@ -285,12 +287,7 @@ function App() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <motion.h1 
-            className="text-6xl font-light text-white dark:text-white mb-8"
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-          >
+          <ScrollFloatText className="text-6xl font-light text-white dark:text-white mb-8">
             Camilo
             <motion.div 
               className="inline-block mx-4"
@@ -306,16 +303,15 @@ function App() {
               />
             </motion.div>
             Diaz
-          </motion.h1>
+          </ScrollFloatText>
           
           <motion.p 
             className="text-xl text-white dark:text-white mb-8 leading-relaxed"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.6 }}
-          >
-            {t('intro.title')}
-          </motion.p>
+            dangerouslySetInnerHTML={{ __html: t('intro.title') }}
+          />
           
           <motion.hr 
             className="w-32 mx-auto border-gray-300 dark:border-gray-600 mb-8"
@@ -386,6 +382,9 @@ function App() {
         viewport={{ once: true }}
       >
         <div className="max-w-4xl mx-auto px-4">
+          <ScrollFloatText className="text-3xl font-light text-center mb-16 text-gray-900 dark:text-white">
+            {t('about.title')}
+          </ScrollFloatText>
           <motion.div 
             className="bg-white dark:bg-gray-700 shadow-lg rounded-lg p-8"
             initial={{ opacity: 0, y: 20 }}
@@ -395,18 +394,17 @@ function App() {
           >
             <div className="flex flex-col md:flex-row items-center gap-8">
               <motion.div 
-                className="md:w-48 flex-shrink-0"
+                className="md:w-64 flex-shrink-0"
                 initial={{ opacity: 0, scale: 0.8 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5 }}
                 viewport={{ once: true }}
               >
                 <div className="sticky top-24 flex items-center justify-center h-full">
-                  <img
-                    src="https://avatars.githubusercontent.com/u/60698278?v=4"
-                    alt="Camilo Diaz"
-                    className="w-48 h-48 object-cover rounded-lg shadow-md"
-                    loading="lazy"
+                  <ProfileCard
+                    imageUrl="https://avatars.githubusercontent.com/u/60698278?v=4"
+                    name="Camilo Diaz"
+                    role="Data Engineer & ML Specialist"
                   />
                 </div>
               </motion.div>
@@ -460,15 +458,9 @@ function App() {
         viewport={{ once: true }}
       >
         <div className="max-w-4xl mx-auto px-4">
-          <motion.h2 
-            className="text-3xl font-light text-center mb-16 text-gray-900 dark:text-white"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            viewport={{ once: true }}
-          >
+          <ScrollFloatText className="text-3xl font-light text-center mb-16 text-gray-900 dark:text-white">
             {t('experience.title')}
-          </motion.h2>
+          </ScrollFloatText>
           <div className="space-y-12">
             {[
               {
@@ -590,15 +582,9 @@ function App() {
         viewport={{ once: true }}
       >
         <div className="max-w-6xl mx-auto px-4">
-          <motion.h2 
-            className="text-3xl font-light text-center mb-16 text-gray-900 dark:text-white"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            viewport={{ once: true }}
-          >
+          <ScrollFloatText className="text-3xl font-light text-center mb-16 text-gray-900 dark:text-white">
             {t('projects.featured.title')}
-          </motion.h2>
+          </ScrollFloatText>
           <motion.div 
             className="flex flex-col md:flex-row gap-8 items-center"
             initial={{ opacity: 0, y: 20 }}
@@ -667,7 +653,9 @@ function App() {
         viewport={{ once: true }}
       >
         <div className="max-w-6xl mx-auto px-4">
-          <h2 className="text-3xl font-light text-center mb-16 text-gray-900 dark:text-white">{t('projects.title')}</h2>
+          <ScrollFloatText className="text-3xl font-light text-center mb-16 text-gray-900 dark:text-white">
+            {t('projects.title')}
+          </ScrollFloatText>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {[
               {
@@ -815,9 +803,9 @@ function App() {
           viewport={{ once: true }}
         >
         <div className="max-w-6xl mx-auto px-4">
-            <h2 className="text-3xl font-light text-center mb-16 text-gray-900 dark:text-white">
+            <ScrollFloatText className="text-3xl font-light text-center mb-16 text-gray-900 dark:text-white">
               {t('interests.title')}
-            </h2>
+            </ScrollFloatText>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {interests.map((interest, index) => (
                 <div
@@ -870,15 +858,9 @@ function App() {
         viewport={{ once: true }}
       >
         <div className="max-w-4xl mx-auto px-4 text-center">
-          <motion.h2 
-            className="text-3xl font-light mb-8"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            viewport={{ once: true }}
-          >
+          <ScrollFloatText className="text-3xl font-light mb-8">
             {t('contact.title')}
-          </motion.h2>
+          </ScrollFloatText>
           <motion.p 
             className="text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto"
             initial={{ opacity: 0, y: 20 }}
