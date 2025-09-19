@@ -19,9 +19,15 @@ export default {
   },
   experience: {
     title: 'Work Experience',
+    ultraTendency: {
+      title: 'Big Data Developer',
+      period: 'Sept 2025 - Present',
+      description: 'Data Engineer specialized in Databricks.',
+      technologies: ['Databricks', 'Azure', 'Python', 'PySpark', 'Spark']
+    },
     qaracter: {
       title: 'Business Consultant',
-      period: 'Sept 2024 - Present',
+      period: 'Sept 2024 - Sept 2025',
       description: 'Implemented workflows using Alteryx and subsequently visualized them with Tableau for a client in the banking sector. I optimized and ensured the efficient integration of data sources to obtain actionable insights and support strategic decisions.'
     },
     publicis: {

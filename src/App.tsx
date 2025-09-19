@@ -464,6 +464,15 @@ function App() {
           <div className="space-y-12">
             {[
               {
+                company: "Ultra Tendency",
+                logo: "https://media.licdn.com/dms/image/v2/C4D0BAQHIIO9g-VojKQ/company-logo_200_200/company-logo_200_200/0/1642706274260/ultra_tendency_logo?e=2147483647&v=beta&t=gbh7s_M5lpcbFDlExrvDZ4RUPT8e1I9aTMTaT96t0sU",
+                website: "https://ultratendency.com/",
+                title: t('experience.ultraTendency.title'),
+                period: t('experience.ultraTendency.period'),
+                description: t('experience.ultraTendency.description'),
+                tags: ["Databricks", "Azure", "Python", "PySpark", "Spark"]
+              },
+              {
                 company: "Qaracter",
                 logo: "https://media.licdn.com/dms/image/v2/D4D0BAQEu4mQIjaGb1A/company-logo_200_200/company-logo_200_200/0/1698059452188/qaracter___beyond_your_challenge_logo?e=2147483647&v=beta&t=ZhNEDFZoGoaAeLetLANZcXHBd9hXCyLldUV-5GLaiNg",
                 website: "https://www.qaracter.com/",
