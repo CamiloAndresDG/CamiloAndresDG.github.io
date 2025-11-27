@@ -22,7 +22,7 @@ export default {
     ultraTendency: {
       title: 'Big Data Developer',
       period: 'Sept 2025 - Presente',
-      description: 'Ingeniero de datos especializado en Databricks.',
+      description: 'Desarrollé y mantuve pipelines ETL escalables para datos en Azure, asegurando el cumplimiento de los estándares regulatorios europeos. Implementé transformaciones reutilizables con Python, PySpark y Databricks, y entregué salidas XSD estructuradas para la integración downstream.',
       technologies: ['Databricks', 'Azure', 'Python', 'PySpark', 'Spark']
     },
     qaracter: {

@@ -22,7 +22,7 @@ export default {
     ultraTendency: {
       title: 'Big Data Developer',
       period: 'Sept 2025 - Present',
-      description: 'Data Engineer specialized in Databricks.',
+      description: 'Developed and maintained scalable ETL pipelines for data in Azure, ensuring compliance with European regulatory standards. Implemented reusable transformations with Python, PySpark, and Databricks, and delivered structured XSD outputs for downstream integration.',
       technologies: ['Databricks', 'Azure', 'Python', 'PySpark', 'Spark']
     },
     qaracter: {
