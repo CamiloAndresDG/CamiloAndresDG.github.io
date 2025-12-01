@@ -251,7 +251,7 @@ function Header() {
                     <motion.button
                       onClick={() => handleLanguageChange('en')}
                       className={`w-full px-4 py-2 text-left hover:bg-gray-100 dark:hover:bg-gray-700 ${
-                        i18n.language !== 'es' ? 'text-blue-600 dark:text-blue-400' : 'text-gray-600 dark:text-gray-300'
+                        i18n.language === 'en' ? 'text-blue-600 dark:text-blue-400' : 'text-gray-600 dark:text-gray-300'
                       }`}
                       whileHover={{ x: 5 }}
                       whileTap={{ scale: 0.95 }}
@@ -267,6 +267,26 @@ function Header() {
                       whileTap={{ scale: 0.95 }}
                     >
                       Español
+                    </motion.button>
+                    <motion.button
+                      onClick={() => handleLanguageChange('de')}
+                      className={`w-full px-4 py-2 text-left hover:bg-gray-100 dark:hover:bg-gray-700 ${
+                        i18n.language === 'de' ? 'text-blue-600 dark:text-blue-400' : 'text-gray-600 dark:text-gray-300'
+                      }`}
+                      whileHover={{ x: 5 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      Deutsch
+                    </motion.button>
+                    <motion.button
+                      onClick={() => handleLanguageChange('fr')}
+                      className={`w-full px-4 py-2 text-left hover:bg-gray-100 dark:hover:bg-gray-700 ${
+                        i18n.language === 'fr' ? 'text-blue-600 dark:text-blue-400' : 'text-gray-600 dark:text-gray-300'
+                      }`}
+                      whileHover={{ x: 5 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      Français
                     </motion.button>
                   </motion.div>
                 )}

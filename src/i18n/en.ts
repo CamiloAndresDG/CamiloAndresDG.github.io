@@ -5,7 +5,11 @@ export default {
     experience: 'Experience',
     projects: 'Projects',
     interests: 'Interests',
-    contact: 'Contact'
+    contact: 'Contact',
+    lightMode: 'Light Mode',
+    darkMode: 'Dark Mode',
+    selectLanguage: 'Select Language',
+    menu: 'Menu'
   },
   intro: {
     title: '👋 Hi! I\'m a bilingual data consultant specializing in <strong>data engineering, machine learning, and cloud solutions</strong>. I\'ve worked across multiple industries, building scalable data-driven solutions. Always learning, always innovating 💡',
@@ -181,7 +185,9 @@ export default {
     },
     language: {
       en: 'English',
-      es: 'Spanish'
+      es: 'Spanish',
+      de: 'German',
+      fr: 'French'
     }
   }
 };

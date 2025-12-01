@@ -10,7 +10,10 @@ export function useLanguage() {
   }, [i18n.language]);
 
   const toggleLanguage = () => {
-    const newLang = currentLanguage === 'en' ? 'es' : 'en';
+    const languages = ['en', 'es', 'de', 'fr'];
+    const currentIndex = languages.indexOf(currentLanguage);
+    const nextIndex = (currentIndex + 1) % languages.length;
+    const newLang = languages[nextIndex];
     i18n.changeLanguage(newLang);
   };
 

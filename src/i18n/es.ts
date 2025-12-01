@@ -5,7 +5,11 @@ export default {
     experience: 'Experiencia',
     projects: 'Proyectos',
     interests: 'Intereses',
-    contact: 'Contacto'
+    contact: 'Contacto',
+    lightMode: 'Modo Claro',
+    darkMode: 'Modo Oscuro',
+    selectLanguage: 'Seleccionar Idioma',
+    menu: 'Menú'
   },
   intro: {
     title: '👋 ¡Hola! Soy consultor de datos bilingüe especializado en <strong>ingeniería de datos, aprendizaje automático y soluciones en la nube</strong>. He trabajado en diversas industrias, desarrollando soluciones escalables basadas en datos. Siempre aprendiendo, siempre innovando. 💡',
@@ -181,7 +185,9 @@ export default {
     },
     language: {
       en: 'Inglés',
-      es: 'Español'
+      es: 'Español',
+      de: 'Alemán',
+      fr: 'Francés'
     }
   }
 };
